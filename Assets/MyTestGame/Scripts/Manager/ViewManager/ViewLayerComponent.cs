@@ -5,15 +5,15 @@ namespace TestGame.ViewManager
     public class ViewLayerComponent : MonoBehaviour
     {
         [SerializeField]
-        private Transform mHudPanel;
-        public Transform HudPanel => mHudPanel;
+        private Transform m_HudPanel;
+        public Transform HudPanel => m_HudPanel;
 
         [SerializeField]
-        private Transform mViewPanel; 
-        public Transform ViewPanel => mViewPanel;
+        private Transform m_ViewPanel; 
+        public Transform ViewPanel => m_ViewPanel;
 
         [SerializeField]
-        private Transform mTopPanel;
-        public Transform TopPanel => mTopPanel;
+        private Transform m_TopPanel;
+        public Transform TopPanel => m_TopPanel;
     }
 }

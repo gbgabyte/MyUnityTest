@@ -6,7 +6,7 @@ namespace TestGame.ViewManager
     {
         ViewDefine.ViewEnum ViewName { get; }
 
-        void SetViewId(ViewDefine.ViewEnum viewName);
+        void SetViewName(ViewDefine.ViewEnum viewName);
 
         void SetParent(Transform parent);
 

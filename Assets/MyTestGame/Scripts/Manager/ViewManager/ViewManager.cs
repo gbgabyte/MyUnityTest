@@ -80,7 +80,9 @@ namespace TestGame.ViewManager
             }
 
             var viewObject = Object.Instantiate(viewPrefab);
-            viewLayer.Push(viewObject.GetComponent<IView>());
+            var view = viewObject.GetComponent<IView>();
+            view.SetViewName(viewName);
+            viewLayer.Push(view);
         }
 
         public void PopView(ViewDefine.ViewEnum viewName)

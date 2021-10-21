@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b0e48d0b38c44409c5324f7f17ef53, type: 3}
   m_Name: ViewManagerSetting
   m_EditorClassIdentifier: 
-  ViewLayerPrefab: {fileID: 9131039900971074585, guid: e636fc5f1a2e3f646ba669edef72778e, type: 3}
+  ViewLayerPrefab: {fileID: 7165387985507970073, guid: 2823222c4b1c2524ab9348117641279f, type: 3}

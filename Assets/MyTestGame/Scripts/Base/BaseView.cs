@@ -21,9 +21,14 @@ namespace TestGame
             transform.SetParent(parent, false);
         }
 
-        void IView.SetViewId(ViewDefine.ViewEnum viewName)
+        void IView.SetViewName(ViewDefine.ViewEnum viewName)
         {
             m_ViewName = viewName;
+        }
+
+        protected void CloseSelf()
+        {
+            this.PopView(ViewName);
         }
     }
 }

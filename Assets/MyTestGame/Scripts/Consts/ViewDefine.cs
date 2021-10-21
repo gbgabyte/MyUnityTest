@@ -7,7 +7,9 @@ namespace TestGame
     {
         public enum ViewEnum
         {
-            HudView
+            HudView,
+            MainMenu,
+            SecondMenu,
         }
 
         public enum Layer
@@ -31,7 +33,9 @@ namespace TestGame
 
         static private readonly Dictionary<ViewEnum, ViewInfo> ViewRegisters = new Dictionary<ViewEnum, ViewInfo>()
         {
-            {ViewEnum.HudView, new ViewInfo(layer: Layer.HUD, local: "View/HudView") }
+            {ViewEnum.HudView, new ViewInfo(layer: Layer.HUD, local: "View/HudView") },
+            {ViewEnum.MainMenu, new ViewInfo(layer: Layer.View, local: "View/MainMenu") },
+            {ViewEnum.SecondMenu, new ViewInfo(layer: Layer.View, local: "View/SecondMenu") },
         };
 
         static public bool GetViewInfo(ViewEnum viewName, out ViewInfo viewInfo)

@@ -6,7 +6,7 @@ namespace TestGame
     /// <summary>
     /// 基础界面类，需要通过ViewManager打开
     /// </summary>
-    public class BaseView : AbstractViewController, IView, ICanShowView, ICanCloseView
+    public class BaseView : AbstractViewController, IView, ICanOptView
     {
         private ViewDefine.ViewEnum m_ViewName;
         public ViewDefine.ViewEnum ViewName => m_ViewName;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TestGame.ViewManager
+namespace TestGame
 {
     public static class ViewDefine
     {

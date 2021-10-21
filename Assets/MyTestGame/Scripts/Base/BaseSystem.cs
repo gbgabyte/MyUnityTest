@@ -2,7 +2,7 @@
 
 namespace TestGame
 {
-    public abstract class BaseSystem : AbstractSystem, ICanShowView, ICanCloseView, ICanCloseAllView
+    public abstract class BaseSystem : AbstractSystem, ICanOptView, ICanCloseAllView
     {
     }
 }

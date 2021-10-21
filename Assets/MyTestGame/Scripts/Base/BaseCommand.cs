@@ -2,7 +2,7 @@
 
 namespace TestGame
 {
-    public abstract class BaseCommand : AbstractCommand, ICanShowView, ICanCloseView, ICanCloseAllView
+    public abstract class BaseCommand : AbstractCommand, ICanOptView, ICanCloseAllView
     {
     }
 }

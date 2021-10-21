@@ -1,41 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+锘縰sing UnityEngine;
 using Framework;
-using System;
 
-public class AchievementSystem : AbstractSystem
+namespace TestGame
 {
-    private int preValue = 0;
-
-    protected override void OnInitSystem()
+    public class AchievementSystem : BaseSystem
     {
-        var countModel = this.GetModel<CountModel>();
-        preValue = countModel.Count.Value;
-        countModel.Count.OnValueChanged += OnChangeCount;
-    }
+        private int preValue = 0;
 
-    private void OnChangeCount(in int value)
-    {
-        if (value == preValue)
+        protected override void OnInitSystem()
         {
-            return;
+            var countModel = this.GetModel<CountModel>();
+            preValue = countModel.Count.Value;
+            countModel.Count.OnValueChanged += OnChangeCount;
         }
 
-        var stogeUtility = this.GetUtility<StogeUtility>();
+        private void OnChangeCount(in int value)
+        {
+            if (value == preValue)
+            {
+                return;
+            }
 
-        if (value == 10 /*&& !stogeUtility.GetValue("ACHIEVEMENT_10", false)*/)
-        {
-            Debug.Log("触发成就10");
-            this.SendEvent(new AchievementEvent() { value = 10 });
-            //stogeUtility.SaveValue("ACHIEVEMENT_10", true);
+            var stogeUtility = this.GetUtility<StogeUtility>();
+
+            if (value == 10 /*&& !stogeUtility.GetValue("ACHIEVEMENT_10", false)*/)
+            {
+                Debug.Log("瑙﹀彂鎴愬氨10");
+                this.SendEvent(new AchievementEvent() { value = 10 });
+                //stogeUtility.SaveValue("ACHIEVEMENT_10", true);
+            }
+            else if (value == 20 /*&& !stogeUtility.GetValue("ACHIEVEMENT_20", false)*/)
+            {
+                Debug.Log("瑙﹀彂鎴愬氨20");
+                this.SendEvent(new AchievementEvent() { value = 20 });
+                //stogeUtility.SaveValue("ACHIEVEMENT_20", true);
+            }
+            preValue = value;
         }
-        else if (value == 20 /*&& !stogeUtility.GetValue("ACHIEVEMENT_20", false)*/)
-        {
-            Debug.Log("触发成就20");
-            this.SendEvent(new AchievementEvent() { value = 20 });
-            //stogeUtility.SaveValue("ACHIEVEMENT_20", true);
-        }
-        preValue = value;
     }
 }

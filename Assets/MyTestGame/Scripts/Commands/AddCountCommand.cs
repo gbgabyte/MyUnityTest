@@ -1,9 +1,12 @@
-using Framework;
+﻿using Framework;
 
-public class AddCountCommand : AbstractCommand
+namespace TestGame
 {
-    protected override void OnExecute()
+    public class AddCountCommand : BaseCommand
     {
-        this.GetModel<CountModel>().Count.Value++;
+        protected override void OnExecute()
+        {
+            this.GetModel<CountModel>().Count.Value++;
+        }
     }
 }

@@ -1,10 +1,13 @@
-using Framework;
+﻿using Framework;
 
-public class CountModel : AbstractModel
+namespace TestGame
 {
-    public BindableProperty<int> Count = new BindableProperty<int> { Value = 0 };
-
-    protected override void OnInitModel()
+    public class CountModel : BaseModel
     {
+        public BindableProperty<int> Count = new BindableProperty<int> { Value = 0 };
+
+        protected override void OnInitModel()
+        {
+        }
     }
 }

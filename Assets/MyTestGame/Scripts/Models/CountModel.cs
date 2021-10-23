@@ -2,9 +2,17 @@
 
 namespace TestGame
 {
-    public class CountModel : BaseModel
+    public interface ICountModel : IModel
     {
-        public BindableProperty<int> Count = new BindableProperty<int> { Value = 0 };
+        BindableProperty<int> Count { get; }
+    }
+
+    public class CountModel : BaseModel, ICountModel
+    {
+        public BindableProperty<int> Count { get; } = new BindableProperty<int>()
+        {
+            Value = 0
+        };
 
         protected override void OnInitModel()
         {

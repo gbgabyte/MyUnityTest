@@ -26,9 +26,9 @@ namespace TestGame
             m_ViewName = viewName;
         }
 
-        protected void CloseSelf()
+        protected void PopSelf()
         {
-            this.PopView(ViewName);
+            this.PopView(this);
         }
     }
 }

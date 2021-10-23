@@ -1,26 +1,34 @@
 using Framework;
 using UnityEngine;
 
-public class StogeUtility : AbstractUtility
+namespace TestGame
 {
-    public void SaveValue(string key, int value)
+    public interface IStogeUtility : IUtility
     {
-        PlayerPrefs.SetInt(key, value);
+
     }
 
-    public void SaveValue(string key, bool value)
+    public class StogeUtility : AbstractUtility, IStogeUtility
     {
-        PlayerPrefs.SetInt(key, value ? 1 : 0);
-    }
+        public void SaveValue(string key, int value)
+        {
+            PlayerPrefs.SetInt(key, value);
+        }
 
-    public int GetValue(string key, int defaultValue = 0)
-    {
-        return PlayerPrefs.GetInt(key, defaultValue);
-    }
+        public void SaveValue(string key, bool value)
+        {
+            PlayerPrefs.SetInt(key, value ? 1 : 0);
+        }
 
-    public bool GetValue(string key, bool defaultValue = false)
-    {
-        var value = PlayerPrefs.GetInt(key, defaultValue ? 1 : 0);
-        return value == 1;
+        public int GetValue(string key, int defaultValue = 0)
+        {
+            return PlayerPrefs.GetInt(key, defaultValue);
+        }
+
+        public bool GetValue(string key, bool defaultValue = false)
+        {
+            var value = PlayerPrefs.GetInt(key, defaultValue ? 1 : 0);
+            return value == 1;
+        }
     }
 }

@@ -93,5 +93,14 @@ namespace TestGame.ViewManager
             }
             viewLayer.Pop(viewName);
         }
+
+        public void PopView(IView view)
+        {
+            if (IsClearing(false) || !GetHandleViewInfo(view.ViewName, out _, out var viewLayer))
+            {
+                return;
+            }
+            viewLayer.Pop(view);
+        }
     }
 }

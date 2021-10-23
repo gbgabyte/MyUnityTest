@@ -10,12 +10,12 @@ namespace TestGame
 
         protected override void Init()
         {
-            RegisterModel(new CountModel());
+            RegisterModel<ICountModel>(new CountModel());
 
-            RegisterSystem(new AchievementSystem());
+            RegisterSystem<IAchievementSystem>(new AchievementSystem());
             RegisterSystem<ITimeSystem>(new TimeSystem());
 
-            RegisterUtility(new StogeUtility());
+            RegisterUtility<IStogeUtility>(new StogeUtility());
 
             var viewManagerSetting = Resources.Load<ViewManagerSetting>("ViewManagerSetting");
             m_ViewManager = new ViewManager.ViewManager(viewManagerSetting);
@@ -29,6 +29,11 @@ namespace TestGame
         public void PopView(ViewDefine.ViewEnum viewName)
         {
             m_ViewManager.PopView(viewName);
+        }
+
+        public void PopView(IView view)
+        {
+            m_ViewManager.PopView(view);
         }
 
         public void ClearAllView()

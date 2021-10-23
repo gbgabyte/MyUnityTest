@@ -1,4 +1,5 @@
 ﻿using Framework;
+using TestGame.ViewManager;
 
 namespace TestGame
 {
@@ -11,6 +12,11 @@ namespace TestGame
         static public void PopView(this ICanOptView self, ViewDefine.ViewEnum viewName)
         {
             (self.GetArchitecture() as MyGame)?.PopView(viewName);
+        }
+
+        static public void PopView(this ICanOptView self, IView view)
+        {
+            (self.GetArchitecture() as MyGame)?.PopView(view);
         }
 
         static public void PushView(this ICanOptView self, ViewDefine.ViewEnum viewName)

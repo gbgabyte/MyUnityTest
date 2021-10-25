@@ -10,7 +10,7 @@ namespace TestGame
     {
         static public void ClearAllView(this ICanCloseAllView self)
         {
-            (self.GetArchitecture() as MyGame)?.ClearAllView();
+            self.GetArchitecture().SendEvent<Event.CloseAllViewEvent>();
         }
     }
 }

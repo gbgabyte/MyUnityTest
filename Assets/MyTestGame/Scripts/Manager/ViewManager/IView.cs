@@ -8,6 +8,8 @@ namespace TestGame.ViewManager
 
         void SetViewName(ViewDefine.ViewEnum viewName);
 
+        void SetViewManager(IViewManager viewManager);
+
         void SetParent(Transform parent);
 
         void DestroyView();

@@ -3,13 +3,18 @@ using Framework;
 
 namespace TestGame
 {
-    public class AchievementSystem : BaseSystem
+    public interface IAchievementSystem : ISystem
+    {
+        
+    }
+
+    public class AchievementSystem : BaseSystem, IAchievementSystem
     {
         private int preValue = 0;
 
         protected override void OnInitSystem()
         {
-            var countModel = this.GetModel<CountModel>();
+            var countModel = this.GetModel<ICountModel>();
             preValue = countModel.Count.Value;
             countModel.Count.OnValueChanged += OnChangeCount;
         }

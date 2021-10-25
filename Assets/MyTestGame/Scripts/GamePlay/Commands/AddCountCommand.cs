@@ -2,11 +2,11 @@
 
 namespace TestGame
 {
-    public class SubCountCommand : BaseCommand
+    public class AddCountCommand : BaseCommand
     {
         protected override void OnExecute()
         {
-            this.GetModel<CountModel>().Count.Value--;
+            this.GetModel<ICountModel>().Count.Value++;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TestGame
         // Start is called before the first frame update
         void Start()
         {
-            m_CloseButton?.onClick.AddListener(CloseSelf);
+            m_CloseButton?.onClick.AddListener(PopSelf);
             m_SubViewButton?.onClick.AddListener(OnShowSubView);
         }
 

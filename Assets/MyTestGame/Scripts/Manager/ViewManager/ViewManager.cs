@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Framework;
 
 namespace TestGame.ViewManager
 {
@@ -22,6 +23,14 @@ namespace TestGame.ViewManager
             m_ViewLayers.Add(ViewDefine.Layer.HUD, new ViewHeapLayer(m_HudPanel));
             m_ViewLayers.Add(ViewDefine.Layer.View, new ViewStackLayer(m_ViewPanel));
             m_ViewLayers.Add(ViewDefine.Layer.Top, new ViewHeapLayer(m_TopPanel));
+
+            var architecture = MyGame.Instance;
+            architecture.RegisterEvent<Event.PopViewEvent>((e) => PopView(e.viewName))
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+            architecture.RegisterEvent<Event.PushViewEvent>((e) => PushView(e.viewName))
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+            architecture.RegisterEvent<Event.CloseAllViewEvent>((e) => ClearView())
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         private GameObject LoadGameObject(in ViewDefine.ViewInfo viewInfo)
@@ -34,7 +43,7 @@ namespace TestGame.ViewManager
         private bool GetViewLayer(ViewDefine.ViewEnum viewName, out IViewLayer viewLayer)
         {
             viewLayer = null;
-            if (ViewDefine.GetViewInfo(viewName, out var viewInfo))
+            if (!GetViewInfo(viewName, out var viewInfo))
             {
                 return false;
             }
@@ -88,6 +97,7 @@ namespace TestGame.ViewManager
             var viewObject = Instantiate(viewPrefab);
             var view = viewObject.GetComponent<IView>();
             view.SetViewName(viewName);
+            view.SetViewManager(this);
             viewLayer.Push(view);
         }
 
@@ -98,6 +108,15 @@ namespace TestGame.ViewManager
                 return;
             }
             viewLayer.Pop(viewName);
+        }
+
+        public void PopView(IView view)
+        {
+            if (IsClearing(false) || !GetViewLayer(view.ViewName, out var viewLayer))
+            {
+                return;
+            }
+            viewLayer.Pop(view);
         }
     }
 }

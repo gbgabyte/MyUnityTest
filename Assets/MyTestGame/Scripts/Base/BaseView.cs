@@ -1,4 +1,5 @@
-﻿using TestGame.ViewManager;
+﻿using System;
+using TestGame.ViewManager;
 using UnityEngine;
 
 namespace TestGame
@@ -10,6 +11,8 @@ namespace TestGame
     {
         private ViewDefine.ViewEnum m_ViewName;
         public ViewDefine.ViewEnum ViewName => m_ViewName;
+
+        private WeakReference<IViewManager> m_ViewManager = new WeakReference<IViewManager>(null);
 
         public void DestroyView()
         {
@@ -26,9 +29,17 @@ namespace TestGame
             m_ViewName = viewName;
         }
 
-        protected void CloseSelf()
+        protected void PopSelf()
         {
-            this.PopView(ViewName);
+            if (m_ViewManager.TryGetTarget(out var viewManager))
+            {
+                viewManager.PopView(this);
+            }
+        }
+
+        public void SetViewManager(IViewManager viewManager)
+        {
+            m_ViewManager.SetTarget(viewManager);
         }
     }
 }

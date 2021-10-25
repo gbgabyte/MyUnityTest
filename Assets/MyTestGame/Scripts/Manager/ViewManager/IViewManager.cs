@@ -15,6 +15,12 @@ namespace TestGame.ViewManager
         void PopView(ViewDefine.ViewEnum viewName);
 
         /// <summary>
+        /// 弹出界面
+        /// </summary>
+        /// <param name="view">要弹出的界面实例</param>
+        void PopView(IView view);
+
+        /// <summary>
         /// 移除所有界面
         /// </summary>
         void ClearView();

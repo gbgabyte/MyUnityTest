@@ -6,6 +6,8 @@
 
         void Pop(ViewDefine.ViewEnum viewName);
 
+        void Pop(IView view);
+
         void Clear();
     }
 }

@@ -4,9 +4,18 @@ using UnityEngine;
 
 namespace TestGame
 {
-    public class MyGame : Architecture<MyGame>
+    public interface IBelongViewManager
     {
-        private IViewManager m_ViewManager;
+        void PushView(ViewDefine.ViewEnum viewName);
+
+        void PopView(ViewDefine.ViewEnum viewName);
+
+        void ClearAllView();
+    }
+
+    public class MyGame : Architecture<MyGame>, IBelongViewManager
+    {
+        public IViewManager ViewManager { get; set; }
 
         protected override void Init()
         {
@@ -16,24 +25,21 @@ namespace TestGame
             RegisterSystem<ITimeSystem>(new TimeSystem());
 
             RegisterUtility(new StogeUtility());
-
-            var viewManagerSetting = Resources.Load<ViewManagerSetting>("ViewManagerSetting");
-            m_ViewManager = new ViewManager.ViewManager(viewManagerSetting);
         }
 
         public void PushView(ViewDefine.ViewEnum viewName)
         {
-            m_ViewManager.PushView(viewName);
+            ViewManager?.PushView(viewName);
         }
 
         public void PopView(ViewDefine.ViewEnum viewName)
         {
-            m_ViewManager.PopView(viewName);
+            ViewManager?.PopView(viewName);
         }
 
         public void ClearAllView()
         {
-            m_ViewManager.ClearView();
+            ViewManager?.ClearView();
         }
     }
 }

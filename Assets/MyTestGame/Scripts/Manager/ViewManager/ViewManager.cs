@@ -3,23 +3,25 @@ using UnityEngine;
 
 namespace TestGame.ViewManager
 {
-    public class ViewManager : IViewManager
+    public class ViewManager : MonoBehaviour, IViewManager
     {
+        [SerializeField]
+        private Transform m_HudPanel;
+
+        [SerializeField]
+        private Transform m_ViewPanel;
+
+        [SerializeField]
+        private Transform m_TopPanel;
+
         private Dictionary<ViewDefine.ViewEnum, GameObject> m_ViewCaches = new Dictionary<ViewDefine.ViewEnum, GameObject>();
         private Dictionary<ViewDefine.Layer, IViewLayer> m_ViewLayers = new Dictionary<ViewDefine.Layer, IViewLayer>();
-        private GameObject m_CanvasObject;
 
-        public ViewManager(ViewManagerSetting setting)
+        private void Awake()
         {
-            var viewLayers = Object.Instantiate(setting.ViewLayerPrefab);
-            Object.DontDestroyOnLoad(viewLayers.gameObject);
-
-            m_CanvasObject = viewLayers.gameObject;
-            m_CanvasObject.name = "ViewManager";
-
-            m_ViewLayers.Add(ViewDefine.Layer.HUD, new ViewHeapLayer(viewLayers.HudPanel));
-            m_ViewLayers.Add(ViewDefine.Layer.View, new ViewStackLayer(viewLayers.ViewPanel));
-            m_ViewLayers.Add(ViewDefine.Layer.Top, new ViewHeapLayer(viewLayers.TopPanel));
+            m_ViewLayers.Add(ViewDefine.Layer.HUD, new ViewHeapLayer(m_HudPanel));
+            m_ViewLayers.Add(ViewDefine.Layer.View, new ViewStackLayer(m_ViewPanel));
+            m_ViewLayers.Add(ViewDefine.Layer.Top, new ViewHeapLayer(m_TopPanel));
         }
 
         private GameObject LoadGameObject(in ViewDefine.ViewInfo viewInfo)
@@ -29,20 +31,19 @@ namespace TestGame.ViewManager
             return gameObject;
         }
 
-        private bool GetHandleViewInfo(ViewDefine.ViewEnum viewName, out ViewDefine.ViewInfo viewInfo, out IViewLayer viewLayer)
+        private bool GetViewLayer(ViewDefine.ViewEnum viewName, out IViewLayer viewLayer)
         {
             viewLayer = null;
-            if (!ViewDefine.GetViewInfo(viewName, out viewInfo))
+            if (ViewDefine.GetViewInfo(viewName, out var viewInfo))
             {
                 return false;
             }
-            if (!m_ViewLayers.TryGetValue(viewInfo.layer, out viewLayer))
-            {
-                Debug.Log("层级[" + viewInfo.layer + "]找不到对应的节点");
-                return false;
-            }
-            return true;
+            return GetViewLayer(viewInfo.layer, out viewLayer);
         }
+
+        private bool GetViewLayer(ViewDefine.Layer layer, out IViewLayer viewLayer) => m_ViewLayers.TryGetValue(layer, out viewLayer);
+
+        private bool GetViewInfo(ViewDefine.ViewEnum viewName, out ViewDefine.ViewInfo viewInfo) => ViewDefine.GetViewInfo(viewName, out viewInfo);
 
         private bool m_IsClearing = false;
         public bool IsClearing(bool silently = true)
@@ -68,7 +69,12 @@ namespace TestGame.ViewManager
 
         public void PushView(ViewDefine.ViewEnum viewName)
         {   
-            if (IsClearing(false) || !GetHandleViewInfo(viewName, out var viewInfo, out var viewLayer))
+            if (IsClearing(false))
+            {
+                return;
+            }
+
+            if (!(GetViewInfo(viewName, out var viewInfo) && GetViewLayer(viewInfo.layer, out var viewLayer)))
             {
                 return;
             }
@@ -79,7 +85,7 @@ namespace TestGame.ViewManager
                 m_ViewCaches[viewName] = viewPrefab;
             }
 
-            var viewObject = Object.Instantiate(viewPrefab);
+            var viewObject = Instantiate(viewPrefab);
             var view = viewObject.GetComponent<IView>();
             view.SetViewName(viewName);
             viewLayer.Push(view);
@@ -87,7 +93,7 @@ namespace TestGame.ViewManager
 
         public void PopView(ViewDefine.ViewEnum viewName)
         {
-            if (IsClearing(false) || !GetHandleViewInfo(viewName, out _, out var viewLayer))
+            if (IsClearing(false) || !GetViewLayer(viewName, out var viewLayer))
             {
                 return;
             }

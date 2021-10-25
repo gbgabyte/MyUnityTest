@@ -1,6 +1,6 @@
 ﻿using Framework;
 
-namespace TestGame
+namespace TestGame.Command
 {
     public class SubCountCommand : BaseCommand
     {

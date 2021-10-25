@@ -21,13 +21,14 @@ namespace TestGame
         private void Awake()
         {
             m_CloseButton.onClick.AddListener(PopSelf);
-            m_AddButton.onClick.AddListener(() => this.SendCommand<AddCountCommand>());
-            m_DownButton.onClick.AddListener(() => this.SendCommand<SubCountCommand>());
-
+            m_AddButton.onClick.AddListener(() => this.SendCommand<Command.AddCountCommand>());
+            m_DownButton.onClick.AddListener(() => this.SendCommand<Command.SubCountCommand>());
 
             var countModel = this.GetModel<ICountModel>();
             countModel.Count.OnValueChanged += OnNumberChange;
-            OnNumberChange(countModel.Count.Value);
+
+            var count = this.SendQuery(new Query.CountQuery());
+            OnNumberChange(count);
         }
 
         private void OnDestroy()

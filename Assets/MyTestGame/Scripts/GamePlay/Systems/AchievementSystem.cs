@@ -26,18 +26,18 @@ namespace TestGame
                 return;
             }
 
-            var stogeUtility = this.GetUtility<StogeUtility>();
+            var stogeUtility = this.GetUtility<IStogeUtility>();
 
             if (value == 10 /*&& !stogeUtility.GetValue("ACHIEVEMENT_10", false)*/)
             {
                 Debug.Log("触发成就10");
-                this.SendEvent(new AchievementEvent() { value = 10 });
+                this.SendEvent(new Event.AchievementEvent(v: 10));
                 //stogeUtility.SaveValue("ACHIEVEMENT_10", true);
             }
             else if (value == 20 /*&& !stogeUtility.GetValue("ACHIEVEMENT_20", false)*/)
             {
                 Debug.Log("触发成就20");
-                this.SendEvent(new AchievementEvent() { value = 20 });
+                this.SendEvent(new Event.AchievementEvent(v: 20));
                 //stogeUtility.SaveValue("ACHIEVEMENT_20", true);
             }
             preValue = value;

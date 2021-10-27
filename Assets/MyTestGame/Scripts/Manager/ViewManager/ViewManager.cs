@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Framework;
+using TestGame.Event;
 
 namespace TestGame.ViewManager
 {
@@ -25,11 +26,11 @@ namespace TestGame.ViewManager
             m_ViewLayers.Add(ViewDefine.Layer.Top, new ViewHeapLayer(m_TopPanel));
 
             var architecture = MyGame.Instance;
-            architecture.RegisterEvent<Event.PopViewEvent>((e) => PopView(e.viewName))
+            architecture.RegisterEvent((in PopViewEvent e) => PopView(e.viewName))
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            architecture.RegisterEvent<Event.PushViewEvent>((e) => PushView(e.viewName))
+            architecture.RegisterEvent((in PushViewEvent e) => PushView(e.viewName))
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            architecture.RegisterEvent<Event.CloseAllViewEvent>((e) => ClearView())
+            architecture.RegisterEvent((in CloseAllViewEvent e) => ClearView())
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 

@@ -19,19 +19,14 @@ namespace TestGame.Level.Component
                 return;
             }
 
-            var face = 0;
-
             if (Input.GetKey(KeyCode.A))
             {
-                face = -1;
+                Pawan.SetMove(-1);
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                face = 1;
+                Pawan.SetMove(1);
             }
-
-            Debug.Log(face);
-            Pawan.SetMove(face);
         }
     }
 }

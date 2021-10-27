@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 69415910}
   - component: {fileID: 69415909}
   - component: {fileID: 69415908}
-  - component: {fileID: 69415907}
   - component: {fileID: 69415906}
   m_Layer: 0
   m_Name: GameObject
@@ -223,14 +222,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!222 &69415907
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69415903}
-  m_CullTransparentMesh: 1
 --- !u!61 &69415908
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -270,7 +261,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 25
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

@@ -6,7 +6,7 @@ namespace TestGame.Query
     {
         protected override int OnDo()
         {
-            var countModel = this.GetModel<ICountModel>();
+            var countModel = this.GetModel<Model.ICountModel>();
             return countModel.Count.Value;
         }
     }

@@ -24,7 +24,7 @@ namespace TestGame
             m_AddButton.onClick.AddListener(() => this.SendCommand<Command.AddCountCommand>());
             m_DownButton.onClick.AddListener(() => this.SendCommand<Command.SubCountCommand>());
 
-            var countModel = this.GetModel<ICountModel>();
+            var countModel = this.GetModel<Model.ICountModel>();
             countModel.Count.OnValueChanged += OnNumberChange;
 
             var count = this.SendQuery(new Query.CountQuery());
@@ -33,7 +33,7 @@ namespace TestGame
 
         private void OnDestroy()
         {
-            var countModel = this.GetModel<ICountModel>();
+            var countModel = this.GetModel<Model.ICountModel>();
             countModel.Count.OnValueChanged -= OnNumberChange;
         }
 

@@ -6,7 +6,7 @@ namespace TestGame.Command
     {
         protected override void OnExecute()
         {
-            this.GetModel<ICountModel>().Count.Value--;
+            this.GetModel<Model.ICountModel>().Count.Value--;
         }
     }
 }

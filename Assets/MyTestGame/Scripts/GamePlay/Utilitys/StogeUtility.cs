@@ -1,7 +1,7 @@
-using Framework;
+﻿using Framework;
 using UnityEngine;
 
-namespace TestGame
+namespace TestGame.Utility
 {
     public interface IStogeUtility : IUtility
     {

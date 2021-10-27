@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Framework;
 
-namespace TestGame
+namespace TestGame.System
 {
     public interface IAchievementSystem : ISystem
     {
@@ -14,7 +14,7 @@ namespace TestGame
 
         protected override void OnInitSystem()
         {
-            var countModel = this.GetModel<ICountModel>();
+            var countModel = this.GetModel<Model.ICountModel>();
             preValue = countModel.Count.Value;
             countModel.Count.OnValueChanged += OnChangeCount;
         }
@@ -26,7 +26,7 @@ namespace TestGame
                 return;
             }
 
-            var stogeUtility = this.GetUtility<IStogeUtility>();
+            var stogeUtility = this.GetUtility<Utility.IStogeUtility>();
 
             if (value == 10 /*&& !stogeUtility.GetValue("ACHIEVEMENT_10", false)*/)
             {

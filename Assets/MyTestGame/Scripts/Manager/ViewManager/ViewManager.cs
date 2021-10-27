@@ -5,7 +5,7 @@ using TestGame.Event;
 
 namespace TestGame.ViewManager
 {
-    public class ViewManager : MonoBehaviour, IViewManager
+    public class ViewManager : MonoBehaviour, IViewManager, IBelongArchiecture, ICanRegisterEvent, ICanGetUtility
     {
         [SerializeField]
         private Transform m_HudPanel;
@@ -25,20 +25,17 @@ namespace TestGame.ViewManager
             m_ViewLayers.Add(ViewDefine.Layer.View, new ViewStackLayer(m_ViewPanel));
             m_ViewLayers.Add(ViewDefine.Layer.Top, new ViewHeapLayer(m_TopPanel));
 
-            var architecture = MyGame.Instance;
-            architecture.RegisterEvent((in PopViewEvent e) => PopView(e.viewName))
+            this.RegisterEvent((in PopViewEvent e) => PopView(e.viewName))
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            architecture.RegisterEvent((in PushViewEvent e) => PushView(e.viewName))
+            this.RegisterEvent((in PushViewEvent e) => PushView(e.viewName))
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            architecture.RegisterEvent((in CloseAllViewEvent e) => ClearView())
+            this.RegisterEvent((in CloseAllViewEvent e) => ClearView())
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
-        private GameObject LoadGameObject(in ViewDefine.ViewInfo viewInfo)
+        private GameObject LoadPrefab(in ViewDefine.ViewInfo viewInfo)
         {
-            // 暂时直接用Resources，后续考虑改为用ResourcesUtility
-            var gameObject = Resources.Load<GameObject>(viewInfo.uiPath);
-            return gameObject;
+            return this.GetUtility<Utility.IResourcesUtility>().Load<GameObject>(viewInfo.uiPath);
         }
 
         private bool GetViewLayer(ViewDefine.ViewEnum viewName, out IViewLayer viewLayer)
@@ -91,7 +88,7 @@ namespace TestGame.ViewManager
 
             if (!m_ViewCaches.TryGetValue(viewName, out GameObject viewPrefab))
             {
-                viewPrefab = LoadGameObject(in viewInfo);
+                viewPrefab = LoadPrefab(in viewInfo);
                 m_ViewCaches[viewName] = viewPrefab;
             }
 
@@ -118,6 +115,11 @@ namespace TestGame.ViewManager
                 return;
             }
             viewLayer.Pop(view);
+        }
+
+        IArchitecture IBelongArchiecture.GetArchitecture()
+        {
+            return MyGame.Instance;
         }
     }
 }

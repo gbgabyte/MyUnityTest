@@ -7,12 +7,13 @@ namespace TestGame
     {
         protected override void Init()
         {
-            RegisterModel<ICountModel>(new CountModel());
+            RegisterModel<Model.ICountModel>(new Model.CountModel());
 
-            RegisterSystem<IAchievementSystem>(new AchievementSystem());
+            RegisterSystem<System.IAchievementSystem>(new System.AchievementSystem());
             RegisterSystem<ITimeSystem>(new TimeSystem());
 
-            RegisterUtility<IStogeUtility>(new StogeUtility());
+            RegisterUtility<Utility.IStogeUtility>(new Utility.StogeUtility());
+            RegisterUtility<Utility.IResourcesUtility>(new Utility.ResourcesUtility());
         }
     }
 }

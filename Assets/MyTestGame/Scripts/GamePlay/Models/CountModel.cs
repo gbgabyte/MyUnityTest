@@ -1,6 +1,6 @@
 ﻿using Framework;
 
-namespace TestGame
+namespace TestGame.Model
 {
     public interface ICountModel : IModel
     {

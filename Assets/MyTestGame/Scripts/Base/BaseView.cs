@@ -7,6 +7,7 @@ namespace TestGame
     /// <summary>
     /// 基础界面类，需要通过ViewManager打开
     /// </summary>
+    [DisallowMultipleComponent]
     public class BaseView : AbstractViewController, IView, ICanOptView
     {
         private ViewDefine.ViewEnum m_ViewName;
@@ -37,7 +38,7 @@ namespace TestGame
             }
         }
 
-        public void SetViewManager(IViewManager viewManager)
+        void IView.SetViewManager(IViewManager viewManager)
         {
             m_ViewManager.SetTarget(viewManager);
         }
